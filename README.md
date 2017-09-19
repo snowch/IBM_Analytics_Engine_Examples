@@ -12,6 +12,6 @@ Examples for IBM Analytics Engine (https://console.bluemix.net/docs/services/Ana
 ### CLI
 
 - In the browser tab opened by running `jupyter notebook`
-  - Setup the Bluemix CLI: [CLI_Setup.ipynb](./examples/CLI/CLI_Setup.ipynb)
-  - Provision IAE Instance: [Provision_IAE.ipynb](./examples/CLI/Provision_IAE.ipynb)
+  - Walk through the steps in `./examples/CLI/CLI_Setup.ipynb` to setup the Bluemix CLI
+  - Walk through the steps in `./examples/CLI/Provision_IAE.ipynb` to provision an IAE Instance
 
