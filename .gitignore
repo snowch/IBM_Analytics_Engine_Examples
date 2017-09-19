@@ -101,3 +101,4 @@ ENV/
 .mypy_cache/
 apiKey.json
 target_endpoint.json
+examples/CLI/custom_script.json
