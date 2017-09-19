@@ -102,3 +102,4 @@ ENV/
 apiKey.json
 target_endpoint.json
 examples/CLI/custom_script.json
+cos_s3_endpoint.json
