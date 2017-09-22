@@ -4,6 +4,78 @@ import json
 def set_notebook_full_width():
     from IPython.core.display import display, HTML
     display(HTML("<style>.container { width:100% !important; }</style>"))
+    
+    
+def save_string_to_cos(string_data, bucket_name, filename, S3_ACCESS_KEY, S3_SECRET_KEY, S3_PUBLIC_ENDPOINT):
+
+    import tempfile
+    tmp_file, tmp_filename = tempfile.mkstemp()
+    
+    with open(tmp_filename,'wb') as output:
+          output.write(string_data)
+            
+    import boto
+    import boto.s3.connection
+
+    conn = boto.connect_s3(
+            aws_access_key_id = S3_ACCESS_KEY,
+            aws_secret_access_key = S3_SECRET_KEY,
+            host = S3_PUBLIC_ENDPOINT,
+            calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+            )
+    
+    try:
+        bucket = conn.get_bucket(bucket_name)
+    except:
+        bucket = conn.create_bucket(bucket_name)
+
+    key = bucket.new_key(filename)
+    key.set_contents_from_filename(tmp_filename)
+    
+    import os
+    os.remove(tmp_filename)
+    
+def save_url_to_cos(url, bucket_name, filename, S3_ACCESS_KEY, S3_SECRET_KEY, S3_PUBLIC_ENDPOINT):
+    
+    import tempfile
+    tmp_file, tmp_filename = tempfile.mkstemp()
+    
+    import urllib2
+    fileobj = urllib2.urlopen(url)
+    with open(tmp_filename,'wb') as output:
+          output.write(fileobj.read())
+            
+    import boto
+    import boto.s3.connection
+
+    conn = boto.connect_s3(
+            aws_access_key_id = S3_ACCESS_KEY,
+            aws_secret_access_key = S3_SECRET_KEY,
+            host = S3_PUBLIC_ENDPOINT,
+            calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+            )
+    
+    try:
+        bucket = conn.get_bucket(bucket_name)
+    except:
+        bucket = conn.create_bucket(bucket_name)
+
+    key = bucket.new_key(filename)
+    key.set_contents_from_filename(tmp_filename)
+    
+    import os
+    os.remove(tmp_filename)
+    
+def strip_premable_from_service_key(service_key_file):
+    
+    # read the file
+    with open(service_key_file) as data_file:
+        # remove the first 4 lines
+        data = ''.join(data_file.readlines()[4:])
+    
+    # save the file
+    with open(service_key_file, 'w') as data_file:
+        data_file.write(data)
 
 def get_cluster_name(ambari_url, user, password):
     
@@ -63,6 +135,8 @@ def read_cf_target_endpoint_details(target_endpoint_filename):
 
 def read_cos_endpoint_details(cos_endpoint_filename):
 
+    import json
+    
     with open(cos_endpoint_filename) as data_file:    
         cos_s3_endpoint = json.load(data_file)
 
@@ -75,3 +149,34 @@ def read_cos_endpoint_details(cos_endpoint_filename):
     print('S3_PUBLIC_ENDPOINT:  ' + S3_PUBLIC_ENDPOINT)
     
     return (S3_ACCESS_KEY, S3_PRIVATE_ENDPOINT, S3_PUBLIC_ENDPOINT, S3_SECRET_KEY)
+
+def read_iae_service_keys(service_key_filename):
+
+    import json
+
+    with open(service_key_filename) as data_file:    
+        iae_service_key = json.load(data_file)
+
+    livy   = iae_service_key['cluster']['service_endpoints']['livy']
+    ambari = iae_service_key['cluster']['service_endpoints']['ambari_console']
+    user   = iae_service_key['cluster']['user']
+    pswd   = iae_service_key['cluster']['password']
+
+    #print('livy:   '   + livy)
+    #print('ambari: '   + ambari)
+    #print('user:   '   + user)
+    
+    return iae_service_key
+
+def iae_service_user(service_key_filename):
+    return read_iae_service_keys(service_key_filename)['cluster']['user']
+    
+def iae_service_password(service_key_filename):
+    return read_iae_service_keys(service_key_filename)['cluster']['password']
+    
+def iae_service_endpoint_ambari(service_key_filename):
+    return read_iae_service_keys(service_key_filename)['cluster']['service_endpoints']['ambari_console']
+    
+def iae_service_endpoint_livy(service_key_filename):
+    return read_iae_service_keys(service_key_filename)['cluster']['service_endpoints']['livy']
+    
