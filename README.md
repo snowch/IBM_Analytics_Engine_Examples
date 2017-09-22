@@ -17,10 +17,10 @@ Examples for IBM Analytics Engine (https://console.bluemix.net/docs/services/Ana
 #### Pre-requisites
 
 - In the browser tab opened by running `jupyter notebook`
-- Walk through the steps in `./examples/CLI/CLI_Setup.ipynb` to setup the Bluemix CLI
+- Walk through the steps in [examples/CLI/CLI_Setup.ipynb](./examples/CLI/CLI_Setup.ipynb) to setup the Bluemix CLI
 
 #### CLI Examples
 
-- `./examples/CLI/Provision_IAE.ipynb` to provision an IAE Instance
-- `./examples/CLI/Provision_IAE_with_COS.ipynb` to provision an IAE Instance with IBM Cloud Object Storage
+- Provision a basic IAE instance - [examples/CLI/Provision_IAE.ipynb](./examples/CLI/Provision_IAE.ipynb)
+- Provision IAE with IBM Cloud Object Storage (COS) - [examples/CLI/Provision_IAE_with_COS.ipynb](./examples/CLI/Provision_IAE_with_COS.ipynb)
 
