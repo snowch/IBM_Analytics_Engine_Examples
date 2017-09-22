@@ -105,3 +105,4 @@ examples/CLI/custom_script.json
 cos_s3_endpoint.json
 examples/CLI/ratings.dat
 iae_service_key.json
+examples/CLI/PiEx.py

@@ -4,7 +4,9 @@ Examples for IBM Analytics Engine (https://console.bluemix.net/docs/services/Ana
 ## Steps
 
 - Clone this repository
+- Install Python 3.x
 - Install Jupyter Notebook on your client machine (http://jupyter.readthedocs.io/en/latest/install.html)
+- pip install -r requirements.txt
 - Run Jupyter Notebook `jupyter notebook`
 - Find an example you are interested in and run it!
 
