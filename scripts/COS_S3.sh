@@ -10,7 +10,7 @@ S3_ENDPOINT=$2
 # S3_SECRET_KEY=<SecretKey-changeme>
 S3_SECRET_KEY=$3
 
-if [ "x$NODE_TYPE" == "xmanagement" ]
+if [ "x$NODE_TYPE" == "xmaster-management" ]
 then
     echo $AMBARI_USER:$AMBARI_PASSWORD:$AMBARI_HOST:$AMBARI_PORT:$CLUSTER_NAME
 
