@@ -180,3 +180,6 @@ def iae_service_endpoint_ambari(service_key_filename):
 def iae_service_endpoint_livy(service_key_filename):
     return read_iae_service_keys(service_key_filename)['cluster']['service_endpoints']['livy']
     
+def iae_service_endpoint_webhdfs(service_key_filename):
+    return read_iae_service_keys(service_key_filename)['cluster']['service_endpoints']['webhdfs']
+    
