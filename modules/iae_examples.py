@@ -4,7 +4,60 @@ import json
 def set_notebook_full_width():
     from IPython.core.display import display, HTML
     display(HTML("<style>.container { width:100% !important; }</style>"))
+
     
+def get_file_content_from_cos(bucket_name, filename, S3_ACCESS_KEY, S3_SECRET_KEY, S3_PUBLIC_ENDPOINT):
+    
+    import boto
+    import boto.s3.connection
+    
+    import tempfile
+    tmp_file, tmp_filename = tempfile.mkstemp()
+    
+    conn = boto.connect_s3(
+            aws_access_key_id = S3_ACCESS_KEY,
+            aws_secret_access_key = S3_SECRET_KEY,
+            host = S3_PUBLIC_ENDPOINT,
+            calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+            )
+    bucket = conn.get_bucket(bucket_name)
+    
+    #for key in bucket.list():
+    #    print "{name}\t{size}\t{modified}".format(
+    #            name = key.name,
+    #            size = key.size,
+    #            modified = key.last_modified,
+    #            )
+    
+    key = bucket.get_key(filename)
+    key.get_contents_to_filename(tmp_filename)
+
+    with open(tmp_filename,'r') as input:
+        content = input.read()
+        
+    import os
+    os.remove(tmp_filename)
+    
+    return content
+
+def recursively_delete_file_in_cos(bucket_name, filename, S3_ACCESS_KEY, S3_SECRET_KEY, S3_PUBLIC_ENDPOINT):
+
+    import boto
+    import boto.s3.connection
+    
+    import tempfile
+    tmp_file, tmp_filename = tempfile.mkstemp()
+    
+    conn = boto.connect_s3(
+            aws_access_key_id = S3_ACCESS_KEY,
+            aws_secret_access_key = S3_SECRET_KEY,
+            host = S3_PUBLIC_ENDPOINT,
+            calling_format = boto.s3.connection.OrdinaryCallingFormat(),
+            )
+    bucket = conn.get_bucket(bucket_name)
+    
+    bucketListResultSet = bucket.list(prefix=filename)
+    return bucket.delete_keys([key.name for key in bucketListResultSet])
     
 def save_string_to_cos(string_data, bucket_name, filename, S3_ACCESS_KEY, S3_SECRET_KEY, S3_PUBLIC_ENDPOINT):
 
