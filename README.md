@@ -3,6 +3,7 @@ Examples for IBM Analytics Engine (https://console.bluemix.net/docs/services/Ana
 
 I'm looking for feedback before developing these examples further.  Please send me your feedback, good and bad: chris.snow@uk.ibm.com
 
+
 ## Steps
 
 - Clone this repository
@@ -26,3 +27,11 @@ I'm looking for feedback before developing these examples further.  Please send 
 - Provision a basic IAE instance - [examples/CLI/Provision_IAE.ipynb](./examples/CLI/Provision_IAE.ipynb)
 - Provision IAE with IBM Cloud Object Storage (COS) - [examples/CLI/Provision_IAE_with_COS.ipynb](./examples/CLI/Provision_IAE_with_COS.ipynb)
 
+## Project goals
+
+- Provide executable documentation that is easy to run and find bugs in the documentation
+- Provide documentation (recipes) for the many different tasks that you can do with IAE
+
+## Help Wanted!
+
+If you would like to help with this project, please contact me: chris.snow@uk.ibm.com
