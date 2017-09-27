@@ -1,6 +1,8 @@
 # IBM_Analytics_Engine_Examples
 Examples for IBM Analytics Engine (https://console.bluemix.net/docs/services/AnalyticsEngine/index.html#introduction)
 
+I'm looking for feedback before developing these examples further.  Please send me your feedback, good and bad: chris.snow@uk.ibm.com
+
 ## Steps
 
 - Clone this repository
